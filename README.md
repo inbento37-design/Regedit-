@@ -17,8 +17,8 @@
   </header>
 
   <main class="max-w-2xl mx-auto p-6 text-center">
-    <h2 class="text-2xl font-bold mb-4">Sigue los pasos para descargar</h2>
-    <p class="mb-6">Debes suscribirte, dar like, unirte al grupo y al canal antes de descargar.</p>
+    <h2 class="text-2xl font-bold mb-4">Sigue los pasos para continuar</h2>
+    <p class="mb-6">Debes suscribirte, dar like, unirte al grupo y al canal antes de finalizar.</p>
     <button id="open-gate" class="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold">Suscribirse</button>
   </main>
 
@@ -27,7 +27,7 @@
     <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center">
 
       <h3 class="text-xl font-bold mb-2">Verificación de pasos</h3>
-      <p class="text-sm text-gray-600 mb-4">Completa cada paso para desbloquear la descarga.</p>
+      <p class="text-sm text-gray-600 mb-4">Completa cada paso para continuar.</p>
 
       <!-- Paso 1: Like -->
       <div id="like-step">
@@ -41,7 +41,7 @@
 
       <!-- Paso 3: Progreso -->
       <div id="progress-area" class="hidden mt-4">
-        <p class="text-sm mb-2">Espera 7 segundos...</p>
+        <p class="text-sm mb-2">Espera 5 segundos...</p>
         <div class="w-full bg-gray-200 rounded-full h-3">
           <div id="progress-bar" class="bg-green-600 h-3 w-0 rounded-full"></div>
         </div>
@@ -56,33 +56,28 @@
         </div>
       </div>
 
-      <!-- Paso 5: Canal de contraseñas -->
+      <!-- Paso 5: Canal -->
       <div id="channel-area" class="hidden mt-4">
-        <p class="text-sm mb-2">Únete a nuestro canal de contraseñas:</p>
+        <p class="text-sm mb-2">Únete a nuestro canal:</p>
         <a id="channel-btn" href="https://whatsapp.com/channel/0029VbBBxkN1yT20bpPJnU23" target="_blank" class="bg-purple-600 text-white px-5 py-3 rounded-lg font-semibold inline-block">Unirme al canal</a>
         <div class="mt-4 hidden" id="channel-continue-wrapper">
           <button id="channel-continue-btn" class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold">Seguir</button>
         </div>
       </div>
 
-      <!-- Paso 6: Descargar -->
+      <!-- Paso 6: Final -->
       <div id="download-area" class="hidden mt-4">
-        <p class="text-sm mb-2">¡Listo! Ahora puedes descargar:</p>
-        <a id="download-link" href="https://chat.whatsapp.com/HkmNRGbee4x4hDOmCBNfAN?mode=ems_copy_c" target="_blank" class="bg-green-600 text-white px-5 py-3 rounded-lg font-semibold inline-block">Descargar ahora</a>
+        <p class="text-sm mb-2">¡Listo! Has completado todos los pasos ✅</p>
+        <a id="download-link" href="https://chat.whatsapp.com/HkmNRGbee4x4hDOmCBNfAN?mode=ems_copy_c" target="_blank" class="bg-green-600 text-white px-5 py-3 rounded-lg font-semibold inline-block">Finalizar</a>
       </div>
 
     </div>
   </div>
 
   <script>
+    // Links configurables
     const CHANNEL_URL = "https://www.youtube.com/@jk-trick2625";
-    const VIDEO_URL   = "https://youtu.be/6nHTJ5eOMso?si=XkwUWvBwLJYUIgTK";  // Nota: este lo pusiste antes
-
-    // Aquí lo actualizo al que me dices ahora:
-    // VIDEO_URL = "https://youtu.be/6nHTJ5eOMso?si=XkwUWvBwLJYUIgTK"; 
-    // Cambiando por tu pedido:
-
-    const NEW_VIDEO = "https://youtu.be/6nHTJ5eOMso?si=XkwUWvBwLJYUIgTK";
+    const VIDEO_URL   = "https://youtu.be/wfw7e2vh3zc?si=4vk6hJgdTIOxz2Rm";
 
     const modal = document.getElementById('subscribe-modal');
     const openGateBtn = document.getElementById('open-gate');
@@ -99,29 +94,43 @@
     const channelBtn = document.getElementById('channel-btn');
     const channelContinueWrapper = document.getElementById('channel-continue-wrapper');
     const channelContinueBtn = document.getElementById('channel-continue-btn');
+    const downloadArea = document.getElementById('download-area');
 
+    function showModal(){ modal.classList.remove('hidden'); }
+
+    openGateBtn.addEventListener('click', () => { 
+      showModal(); 
+      window.open(CHANNEL_URL, '_blank'); 
+    });
+
+    document.getElementById('open-sub-modal').addEventListener('click', () => { 
+      showModal(); 
+      window.open(CHANNEL_URL, '_blank'); 
+    });
+
+    // Paso 1: Like
     openVideoBtn.addEventListener('click', () => {
-      window.open("https://youtu.be/wfw7e2vh3zc?si=4vk6hJgdTIOxz2Rm", '_blank'); 
-      // Si quieres que use el nuevo, cambialo aquí:
-      // window.open(NEW_VIDEO, '_blank');
+      window.open(VIDEO_URL, '_blank'); 
       robotCheck.classList.remove('hidden');
     });
 
+    // Paso 2: No soy un robot
     notRobotBtn.addEventListener('click', () => {
       robotCheck.classList.add('hidden');
       progressArea.classList.remove('hidden');
       let progress = 0;
       const interval = setInterval(() => {
-        progress += 1;
+        progress += 20;
         progressBar.style.width = progress + '%';
         if(progress >= 100){
           clearInterval(interval);
           progressArea.classList.add('hidden');
           whatsappArea.classList.remove('hidden');
         }
-      }, 70);
+      }, 1000);
     });
 
+    // Paso 3: Grupo WhatsApp
     whatsappBtn.addEventListener('click', () => {
       continueWrapper.classList.remove('hidden');
     });
@@ -131,6 +140,7 @@
       channelArea.classList.remove('hidden');
     });
 
+    // Paso 4: Canal
     channelBtn.addEventListener('click', () => {
       channelContinueWrapper.classList.remove('hidden');
     });
